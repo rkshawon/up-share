@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import FilePreview from "./FilePreview";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { app } from "../../../../../firebaseConfig";
+import ProgressBar from "./ProgressBar";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
 
 function UploadForm() {
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const storage = getStorage(app);
+  const db = getFirestore(app);
+  const { user } = useUser();
 
   const selectFile = (e: any) => {
     const data = e.target.files[0];
@@ -13,7 +27,47 @@ function UploadForm() {
     setFile(data);
   };
 
-  const uploadFile = () => {};
+  const uploadFile = (file: any) => {
+    const storageRef = ref(storage, "upshare/" + file.name);
+    const uploadTask = uploadBytesResumable(storageRef, file, file.type);
+
+    uploadTask.on("state_changed", (snapshot) => {
+      const fileProgress =
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+      setProgress(fileProgress);
+      console.log("Upload is " + fileProgress + "% done");
+
+      fileProgress == 100 &&
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File available at", downloadURL);
+          saveFile(file, downloadURL);
+        });
+    });
+    setFile(null);
+  };
+
+  const saveFile = async (file: any, downloadURL: string) => {
+    const docId = generateRandomString();
+
+    await setDoc(doc(db, "upshare", docId), {
+      id: docId,
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type,
+      fileUrl: downloadURL,
+      userEmail: user?.primaryEmailAddress?.emailAddress,
+      userName: user?.fullName,
+      password: "",
+      shortUrl: "http://localhost:3000/upload" + docId,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center w-1/2">
@@ -52,12 +106,13 @@ function UploadForm() {
       </label>
       {file && <FilePreview file={file} setFile={setFile} />}
       <button
-        onClick={uploadFile}
+        onClick={() => uploadFile(file)}
         disabled={!file}
         className="block rounded-3xl bg-purple-600 my-5 px-6 lg:px-16 py-2.5 text-sm font-medium text-white transition hover:bg-purple-700 disabled:bg-gray-300"
       >
         Upload
       </button>
+      <ProgressBar progress={progress} />
     </div>
   );
 }

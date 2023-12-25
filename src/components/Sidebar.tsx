@@ -8,7 +8,7 @@ function Sidebar() {
   const [activeIndex, setActiveIndex] = useState(1);
 
   return (
-    <div className="w-44 space-y-1 h-[100vh-52px] border-r">
+    <div className="w-44 space-y-1 h-[calc(100vh-64px)] border-r shadow-r">
       {sidebarItem.map((item) => {
         return (
           <div
