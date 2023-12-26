@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function Header() {
   return (
-    <header className="bg-white border-b shadow">
+    <header className="bg-white border-b shadow h-16">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
         <Image src="./logo.svg" alt="" height={100} width={150} />
 

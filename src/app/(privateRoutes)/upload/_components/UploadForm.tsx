@@ -10,6 +10,8 @@ import { app } from "../../../../../firebaseConfig";
 import ProgressBar from "./ProgressBar";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
+import generateRandomString from "@/utils/randomString";
+import { useRouter } from "next/navigation";
 
 function UploadForm() {
   const [file, setFile] = useState(null);
@@ -17,6 +19,7 @@ function UploadForm() {
   const storage = getStorage(app);
   const db = getFirestore(app);
   const { user } = useUser();
+  const route = useRouter();
 
   const selectFile = (e: any) => {
     const data = e.target.files[0];
@@ -39,12 +42,16 @@ function UploadForm() {
       console.log("Upload is " + fileProgress + "% done");
 
       fileProgress == 100 &&
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-          saveFile(file, downloadURL);
-        });
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            saveFile(file, downloadURL);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     });
-    setFile(null);
+    // setFile(null);
   };
 
   const saveFile = async (file: any, downloadURL: string) => {
@@ -63,6 +70,7 @@ function UploadForm() {
     })
       .then((res) => {
         console.log(res);
+        route.push("/preview/" + docId);
       })
       .catch((err) => {
         console.log(err);

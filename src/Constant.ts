@@ -13,7 +13,7 @@ export const sidebarItem = [
   },
   {
     id: 2,
-    name: "File",
+    name: "Files",
     icon: File,
     path: "/file",
   },

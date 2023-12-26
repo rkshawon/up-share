@@ -8,3 +8,4 @@ function generateRandomString() {
   }
   return randomString;
 }
+export default generateRandomString;
