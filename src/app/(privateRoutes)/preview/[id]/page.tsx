@@ -40,7 +40,7 @@ function Preview({ params }: { params: { id: string } }) {
       </Link>
       <div className="flex justify-center mt-5 gap-20">
         <FileImage data={data} />
-        <FileDetails data={data} />
+        <FileDetails data={data} id={params?.id} db={db} />
       </div>
     </div>
   );

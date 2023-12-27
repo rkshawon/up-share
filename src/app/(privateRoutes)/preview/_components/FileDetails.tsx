@@ -1,6 +1,17 @@
+"use client";
+import { doc, updateDoc } from "firebase/firestore";
 import { Copy } from "lucide-react";
+import { useState } from "react";
 
-function FileDetails({ data }: any) {
+function FileDetails({ data, id, db }: any) {
+  const [enablePassField, setEnablePassField] = useState(false);
+  const [password, setPassword] = useState("");
+
+  const handlePassword = async () => {
+    const docRef = doc(db, "upshare", id);
+    await updateDoc(docRef, { password });
+  };
+
   return (
     <div className="w-1/2 ">
       <div className="relative">
@@ -18,27 +29,46 @@ function FileDetails({ data }: any) {
       </div>
       <>
         <div className="font-semibold flex gap-1 mt-5">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            onClick={() => setEnablePassField(!enablePassField)}
+          />
           <span>Enable Password?</span>
         </div>
 
-        <label
-          htmlFor="password"
-          className=" text-sm font-semibold text-gray-500"
+        <div
+          className={`mb-2 transition-all ${
+            enablePassField ? "h-[60px]" : "h-[0px] "
+          }`}
         >
-          Password
-        </label>
-        <div className="mb-2 flex items-center gap-2">
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="password..."
-            className="px-2 py-1 w-full rounded border-2 border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-50 focus:outline-none"
-          />
-          <button className="rounded bg-purple-600 px-3 py-[7px] text-sm font-medium text-white transition hover:bg-purple-700 disabled:bg-gray-300">
-            Save
-          </button>
+          <label
+            htmlFor="password"
+            className={`${
+              !enablePassField && "hidden"
+            } text-sm font-semibold text-gray-500`}
+          >
+            Password
+          </label>
+          <div className="mb-2 flex items-center gap-2">
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password..."
+              className={`${
+                !enablePassField && "hidden"
+              } px-2 py-1 w-full rounded border-2 border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-50 focus:outline-none`}
+            />
+            <button
+              onClick={handlePassword}
+              className={`${
+                !enablePassField && "hidden"
+              } rounded bg-purple-600 px-3 py-[7px] text-sm font-medium text-white transition hover:bg-purple-700 disabled:bg-gray-300`}
+            >
+              Save
+            </button>
+          </div>
         </div>
       </>
       <>
