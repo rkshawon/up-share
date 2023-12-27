@@ -1,7 +1,6 @@
 "use client";
 
 import { sidebarItem } from "@/Constant";
-import Image from "next/image";
 import { useState } from "react";
 
 function Sidebar() {
