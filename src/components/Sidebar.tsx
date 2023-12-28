@@ -10,7 +10,7 @@ function Sidebar() {
   const route = useRouter();
 
   return (
-    <div className="w-44 space-y-1 h-[calc(100vh-64px)] border-r shadow-r">
+    <div className=" space-y-1 h-[calc(100vh-64px)] border-r shadow-r">
       {sidebarItem.map((item) => {
         return (
           <div
@@ -25,7 +25,7 @@ function Sidebar() {
           >
             <div className="flex items-center">
               <item.icon size={20} />
-              <span className="ml-2">{item.name}</span>
+              <span className="ml-2 hidden sm:block pr-5">{item.name}</span>
             </div>
           </div>
         );
