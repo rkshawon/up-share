@@ -1,4 +1,5 @@
 "use client";
+
 import Button from "@/components/Button";
 import { doc, updateDoc } from "firebase/firestore";
 import { Copy } from "lucide-react";
@@ -11,6 +12,16 @@ function FileDetails({ data, id, db }: any) {
   const handlePassword = async () => {
     const docRef = doc(db, "upshare", id);
     await updateDoc(docRef, { password });
+  };
+
+  const handleSendEmail = async (e: any) => {
+    e.preventDefault();
+    const response = await fetch("/api/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+    });
+    console.log(response);
   };
 
   return (
@@ -88,7 +99,7 @@ function FileDetails({ data, id, db }: any) {
       {/* <button className="block w-full rounded bg-purple-600 my-5 px-6 lg:px-16 py-2.5 text-sm font-medium text-white transition hover:bg-purple-700 disabled:bg-gray-300">
         Send Email
       </button> */}
-      <Button label="Send Email" />
+      <Button onClick={handleSendEmail} label="Send Email" />
     </div>
   );
 }
