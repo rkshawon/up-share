@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/components/Button";
 import { doc, updateDoc } from "firebase/firestore";
 import { Copy } from "lucide-react";
 import { useState } from "react";
@@ -84,9 +85,10 @@ function FileDetails({ data, id, db }: any) {
           className="mb-2 px-2 py-1 w-full rounded border-2 border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-50 focus:outline-none"
         />
       </>
-      <button className="block w-full rounded bg-purple-600 my-5 px-6 lg:px-16 py-2.5 text-sm font-medium text-white transition hover:bg-purple-700 disabled:bg-gray-300">
+      {/* <button className="block w-full rounded bg-purple-600 my-5 px-6 lg:px-16 py-2.5 text-sm font-medium text-white transition hover:bg-purple-700 disabled:bg-gray-300">
         Send Email
-      </button>
+      </button> */}
+      <Button label="Send Email" />
     </div>
   );
 }
