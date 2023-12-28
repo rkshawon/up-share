@@ -12,7 +12,7 @@ function Header() {
               <li>
                 <a
                   className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/"
+                  href="/upload"
                 >
                   Home
                 </a>
@@ -21,7 +21,7 @@ function Header() {
               <li>
                 <a
                   className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/"
+                  href="/upload"
                 >
                   Upload
                 </a>
@@ -30,18 +30,18 @@ function Header() {
               <li>
                 <a
                   className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/"
+                  href="/file"
                 >
-                  About Us
+                  Files
                 </a>
               </li>
 
               <li>
                 <a
                   className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/"
+                  href="/about"
                 >
-                  Contact Us
+                  About
                 </a>
               </li>
             </ul>
@@ -51,7 +51,7 @@ function Header() {
             <div className="sm:flex sm:gap-4">
               <a
                 className="block rounded-md bg-purple-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-purple-700"
-                href="/file"
+                href="/upload"
               >
                 Get Started
               </a>

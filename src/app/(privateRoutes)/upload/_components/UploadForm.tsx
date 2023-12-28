@@ -27,7 +27,9 @@ function UploadForm() {
       console.log("file size is larger");
       return;
     }
+
     setFile(data);
+    e.target.value = null;
   };
 
   const uploadFile = (file: any) => {
@@ -48,6 +50,8 @@ function UploadForm() {
             saveFile(file, downloadURL);
           })
           .catch((err) => {
+            setFile(null);
+            setProgress(0);
             console.log(err);
           });
     });
@@ -78,7 +82,7 @@ function UploadForm() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-1/2">
+    <div className="flex flex-col items-center justify-center w-1/2 mt-5">
       <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-purple-300 border-dashed rounded-lg cursor-pointer bg-purple-50 dark:hover:bg-bray-800 dark:bg-purple-700 hover:bg-purple-100 dark:border-purple-600 dark:hover:border-purple-500 dark:hover:bg-purple-600">
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           <svg
@@ -116,11 +120,11 @@ function UploadForm() {
       <button
         onClick={() => uploadFile(file)}
         disabled={!file}
-        className="block rounded-3xl bg-purple-600 my-5 px-6 lg:px-16 py-2.5 text-sm font-medium text-white transition hover:bg-purple-700 disabled:bg-gray-300"
+        className="block rounded-3xl bg-purple-600 my-5 px-6 lg:px-16 py-2.5 text-sm font-medium text-white transition hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
       >
         Upload
       </button>
-      <ProgressBar progress={progress} />
+      {progress > 0 && file && <ProgressBar progress={progress} />}
     </div>
   );
 }

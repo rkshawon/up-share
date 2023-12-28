@@ -5,7 +5,7 @@ function FilePreview({ file, setFile }: any) {
   return (
     <div className="flex items-center justify-between w-full border border-purple-300 rounded mt-5 px-5 py-2">
       <div className="flex items-center">
-        <Image src="/file.png" alt="" height={50} width={50} />
+        <Image src={"/file.png"} alt="" height={50} width={50} />
         <div className="ml-2">
           <p className="text-semibold">Name: {file?.name}</p>
 

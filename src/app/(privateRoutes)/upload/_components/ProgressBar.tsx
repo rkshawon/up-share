@@ -2,15 +2,7 @@
 
 function Progressbar({ progress }: { progress: number }) {
   progress = Math.floor(progress);
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setProgress((prevProgress) =>
-  //       prevProgress < 100 ? prevProgress + 30 : 100
-  //     );
-  //   }, 500);
 
-  //   return () => clearInterval(interval);
-  // }, []);
   return (
     <div className="flex h-3 w-[300px] overflow-hidden bg-purple-200 rounded-lg">
       <div

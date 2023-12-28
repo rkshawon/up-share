@@ -1,4 +1,4 @@
-import { Files, Shield, Upload } from "lucide-react";
+import { Files, ShieldPlus, FolderUp, BookOpenText } from "lucide-react";
 
 export const description = {
   desc: "Transform your file management experience with our intuitive and secure file upload platform.",
@@ -8,7 +8,7 @@ export const sidebarItem = [
   {
     id: 1,
     name: "Upload",
-    icon: Upload,
+    icon: FolderUp,
     path: "/upload",
   },
   {
@@ -20,7 +20,13 @@ export const sidebarItem = [
   {
     id: 3,
     name: "Upgrade",
-    icon: Shield,
+    icon: ShieldPlus,
     path: "/upgrade",
+  },
+  {
+    id: 4,
+    name: "About",
+    icon: BookOpenText,
+    path: "/about",
   },
 ];
