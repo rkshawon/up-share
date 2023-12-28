@@ -7,10 +7,12 @@ import Link from "next/link";
 import FileImage from "../_components/FileImage";
 import FileDetails from "../_components/FileDetails";
 import { ChevronLeftCircle } from "lucide-react";
+import Loader from "@/components/Loader";
 
 function Preview({ params }: { params: { id: string } }) {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const db = getFirestore(app);
 
   const getInfo = async () => {
@@ -22,6 +24,7 @@ function Preview({ params }: { params: { id: string } }) {
       setData(file);
       setIsLoading(false);
     } else {
+      setIsError(true);
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
@@ -31,8 +34,12 @@ function Preview({ params }: { params: { id: string } }) {
     params?.id && getInfo();
   }, []);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
-    <div className="flex flex-col items-center p-20 my-5 max-w-[2100px]">
+    <div className="flex flex-col items-center max-w-[2100px]">
       <Link
         href="/upload"
         className="font-semibold w-full flex justify-start items-center gap-1"
