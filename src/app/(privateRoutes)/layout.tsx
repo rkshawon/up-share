@@ -11,7 +11,7 @@ export default function RootLayout({
       <Navbar />
       <div className="flex">
         <Sidebar />
-        <div className="w-full">{children}</div>
+        <div className="w-full h-[calc(100vh-64px)]">{children}</div>
       </div>
     </>
   );

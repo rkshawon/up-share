@@ -40,7 +40,7 @@ function Preview({ params }: { params: { id: string } }) {
         <ChevronLeftCircle color="#7c3aed" />
         <span> Go to upload</span>
       </Link>
-      <div className="flex justify-center mt-5 gap-20">
+      <div className="flex flex-col lg:flex-row justify-center mt-5 gap-20 w-full">
         <FileImage data={data} />
         <FileDetails data={data} id={params?.id} db={db} />
       </div>

@@ -13,7 +13,7 @@ function FileDetails({ data, id, db }: any) {
   };
 
   return (
-    <div className="w-1/2 ">
+    <div className="lg:w-1/2 min-w-[250px] lg:max-w-[500px]">
       <div className="relative">
         <label htmlFor="email" className=" text-sm font-semibold text-gray-500">
           Short Url
@@ -31,6 +31,7 @@ function FileDetails({ data, id, db }: any) {
         <div className="font-semibold flex gap-1 mt-5">
           <input
             type="checkbox"
+            placeholder="."
             onClick={() => setEnablePassField(!enablePassField)}
           />
           <span>Enable Password?</span>
