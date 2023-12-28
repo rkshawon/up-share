@@ -25,7 +25,7 @@ function FileDetails({ data, id, db }: any) {
           placeholder={data.shortUrl || "file url..."}
           className="mb-2 px-2 py-1 w-full rounded border-2 border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-50 focus:outline-none"
         />
-        <Copy className="text-gray-400 absolute top-[30px] right-1.5 cursor-pointer" />
+        <Copy className="text-gray-400 absolute top-[30px] right-1.5 cursor-pointer bg-white" />
       </div>
       <>
         <div className="font-semibold flex gap-1 mt-5">
