@@ -33,28 +33,11 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 }: EmailTemplateProps) => {
   return (
     <Html>
-      <Head />
-      <Preview>Yelp recent login</Preview>
       <Body style={main}>
         <Container>
-          <Section style={logo}>
-            <Img src={`${baseUrl}/static/yelp-logo.png`} />
-          </Section>
-
           <Section style={content}>
-            <Img width={620} src={`${baseUrl}/static/yelp-header.png`} />
-
             <Row style={{ ...boxInfos, paddingBottom: "0" }}>
               <Column>
-                <Heading
-                  style={{
-                    fontSize: 32,
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  Hi {userName},
-                </Heading>
                 <Heading
                   as="h2"
                   style={{
@@ -63,41 +46,28 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                     textAlign: "center",
                   }}
                 >
-                  We noticed a recent login to your Yelp account.
+                  {userName} shared file with you.
                 </Heading>
-
-                {/* <Text style={{ ...paragraph, marginTop: -5 }}>
-                  <b>Location: </b>
-                  {loginLocation}
-                </Text> */}
-                <Text
-                  style={{
-                    color: "rgb(0,0,0, 0.5)",
-                    fontSize: 14,
-                    marginTop: -5,
-                  }}
-                >
-                  *Approximate geographic location based on IP address:
-                </Text>
-
                 <Text style={paragraph}>
-                  If this was you, theres nothing else you need to do.
+                  <b>File Name: </b>
+                  {fileName}
                 </Text>
                 <Text style={{ ...paragraph, marginTop: -5 }}>
-                  If this wasnt you or if you have additional questions, please
-                  see our support page.
+                  <b>File Type: </b>
+                  {fileType}
+                </Text>
+                <Text style={{ ...paragraph, marginTop: -5 }}>
+                  If you have additional questions, please see our support page.
                 </Text>
               </Column>
             </Row>
             <Row style={{ ...boxInfos, paddingTop: "0" }}>
               <Column style={containerButton} colSpan={2}>
-                <Button style={button}>Learn More</Button>
+                <a href={shortUrl} target="_blank">
+                  <Button style={button}>Click heree to Download</Button>
+                </a>
               </Column>
             </Row>
-          </Section>
-
-          <Section style={containerImageFooter}>
-            <Img width={620} src={`${baseUrl}/static/yelp-footer.png`} />
           </Section>
 
           <Text
@@ -107,8 +77,8 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               color: "rgb(0,0,0, 0.7)",
             }}
           >
-            © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105,
-            U.S.A. | www.yelp.com
+            © 2024 | Up Share Inc., 350 Mission Street, San Francisco, CA 94105,
+            U.S.A. | www.upshare.com
           </Text>
         </Container>
       </Body>
@@ -137,7 +107,7 @@ const containerButton = {
 };
 
 const button = {
-  backgroundColor: "#e00707",
+  backgroundColor: "#7c3aed",
   padding: "12px 30px",
   borderRadius: 3,
   color: "#FFF",

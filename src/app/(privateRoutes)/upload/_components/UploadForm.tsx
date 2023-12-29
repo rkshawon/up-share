@@ -70,7 +70,7 @@ function UploadForm() {
       userEmail: user?.primaryEmailAddress?.emailAddress,
       userName: user?.fullName,
       password: "",
-      shortUrl: "http://localhost:3000/upload" + docId,
+      shortUrl: "http://localhost:3000/download/" + docId,
     })
       .then((res) => {
         console.log(res);
