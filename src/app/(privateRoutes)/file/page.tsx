@@ -17,6 +17,8 @@ import Link from "next/link";
 
 function File() {
   const [data, setData] = useState<DocumentData[]>([]);
+  const [next, setNext] = useState(0);
+  const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const { user } = useUser();
@@ -35,7 +37,10 @@ function File() {
 
       if (!querySnapshot.empty) {
         const docsData = querySnapshot.docs.map((doc) => doc.data());
-        setData(docsData);
+        const first10Data = docsData.slice(next, next + 5);
+        setTotal(docsData?.length);
+        setData(first10Data);
+        // setData(docsData);
         setIsLoading(false);
       } else {
         setIsError(true);
@@ -49,24 +54,27 @@ function File() {
 
   useEffect(() => {
     getInfo();
-  }, [user]);
+  }, [user, next]);
 
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <div>
+    <div className="mt-[-50px] mb-5">
+      <h1 className="text-2xl xl:text-3xl font-semibold py-5 text-start">
+        My Files
+      </h1>
       <div className="rounded-lg border border-gray-200">
         <div className="overflow-x-auto rounded-t-lg">
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-            <thead className="ltr:text-left rtl:text-right">
+            <thead>
               <tr>
                 {tableHeader.map((header) => {
                   return (
                     <th
                       key={header.id}
-                      className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-start"
+                      className="whitespace-nowrap px-1 sm:px-5 py-2 font-medium text-gray-900 text-start"
                     >
                       {header.name}
                     </th>
@@ -79,19 +87,19 @@ function File() {
               {data?.map((item) => {
                 return (
                   <tr key={item?.id}>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    <td className="whitespace-nowrap px-1 sm:px-5 py-2 font-medium text-gray-900">
                       {item.fileName.length > 10
                         ? `${item.fileName.substring(0, 10)}...`
                         : item.fileName}
                     </td>
 
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                    <td className="whitespace-nowrap px-1 sm:px-5 py-2 text-gray-700">
                       {item.fileType}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                    <td className="whitespace-nowrap px-1 sm:px-5 py-2 text-gray-700">
                       {(item.fileSize / 1000 / 1000).toFixed(2)}mb
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2">
+                    <td className="whitespace-nowrap px-1 sm:px-5 py-2">
                       <Link
                         href={item?.shortUrl}
                         className="inline-block rounded bg-purple-600 px-4 py-2 text-xs font-medium text-white hover:bg-purple-700"
@@ -107,78 +115,25 @@ function File() {
         </div>
 
         <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
-          <ol className="flex justify-end gap-1 text-xs font-medium">
+          <ol className="flex justify-end gap-5 text-xs font-medium">
             <li>
-              <a
-                href="#"
-                className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+              <button
+                onClick={() => next >= 0 && setNext(next - 5)}
+                disabled={next === 0}
+                className="flex h-8 disabled:cursor-not-allowed disabled:bg-gray-500 items-center justify-center rounded border border-gray-100 bg-purple-600 hover:bg-purple-700 transition-all text-white"
               >
-                <span className="sr-only">Prev Page</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3 w-3"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </a>
+                <span className="px-2">Prev</span>
+              </button>
             </li>
 
             <li>
-              <a
-                href="#"
-                className="block h-8 w-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
+              <button
+                onClick={() => next <= total - 5 && setNext(next + 5)}
+                disabled={next >= total - 5}
+                className="flex disabled:cursor-not-allowed disabled:bg-gray-500 h-8 items-center justify-center rounded border border-gray-100 bg-purple-600 hover:bg-purple-700 transition-all text-white"
               >
-                1
-              </a>
-            </li>
-
-            <li className="block h-8 w-8 rounded border-purple-600 bg-purple-600 text-center leading-8 text-white">
-              2
-            </li>
-
-            <li>
-              <a
-                href="#"
-                className="block h-8 w-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
-              >
-                3
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="#"
-                className="block h-8 w-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
-              >
-                4
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="#"
-                className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
-              >
-                <span className="sr-only">Next Page</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3 w-3"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </a>
+                <span className="px-2">Next</span>
+              </button>
             </li>
           </ol>
         </div>

@@ -3,7 +3,7 @@ import React from "react";
 
 function FileImage({ data }: any) {
   return (
-    <div className=" border shadow min-w-[200px] max-w-[600px] border-purple-200 p-5 rounded">
+    <div className="border shadow border-purple-200 p-5 rounded flex justify-center items-center h-[90%]">
       <Image
         src={data?.fileUrl}
         alt=""

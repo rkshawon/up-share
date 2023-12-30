@@ -52,7 +52,7 @@ function FileDetails({ data, id, db }: any) {
   }, []);
 
   return (
-    <div className="lg:w-1/2 min-w-[250px] lg:max-w-[500px]">
+    <div className="lg:w-1/2 min-w-[40%] lg:max-w-[500px]">
       <div className="relative">
         <label htmlFor="email" className=" text-sm font-semibold text-gray-500">
           Short Url
