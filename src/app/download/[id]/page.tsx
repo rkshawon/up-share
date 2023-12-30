@@ -59,7 +59,7 @@ function Download({ params }: { params: { id: string } }) {
           with you
         </h2>
         <p className="text-gray-500 text-xs mb-5">Get file details below</p>
-        <Image src="/file.png" alt="" width={100} height={100} />
+        <Image src="/download.gif" alt="" width={100} height={100} />
         <div className="ml-3 mt-5 mb-3 text-start">
           <p className="text-semibold">Name: {data?.fileName}</p>
           <p className="text-gray-500 text-xs">Type: {data?.fileType}</p>

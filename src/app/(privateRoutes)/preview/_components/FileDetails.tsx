@@ -2,27 +2,54 @@
 
 import Button from "@/components/Button";
 import { doc, updateDoc } from "firebase/firestore";
-import { Copy } from "lucide-react";
-import { useState } from "react";
+import { Copy, Check } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 function FileDetails({ data, id, db }: any) {
   const [enablePassField, setEnablePassField] = useState(false);
   const [password, setPassword] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handlePassword = async () => {
     const docRef = doc(db, "upshare", id);
-    await updateDoc(docRef, { password });
+    await updateDoc(docRef, { password })
+      .then((res) => {
+        toast.success("Password saved successfully.");
+      })
+      .catch((err) => {
+        toast.error("Failed to save password.");
+      });
   };
 
   const handleSendEmail = async (e: any) => {
     e.preventDefault();
-    const response = await fetch("/api/send", {
+    await fetch("/api/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({}),
-    });
-    console.log(response);
+    })
+      .then((res) => {
+        toast.success("Email sent successfully.");
+        console.log(res);
+      })
+      .catch((err) => {
+        toast.error("Failed to send email.");
+        console.log(err);
+      });
   };
+
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(data?.shortUrl);
+    setCopied(true);
+    const timeoutId = setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   return (
     <div className="lg:w-1/2 min-w-[250px] lg:max-w-[500px]">
@@ -37,7 +64,14 @@ function FileDetails({ data, id, db }: any) {
           placeholder={data?.shortUrl || "file url..."}
           className="mb-2 px-2 py-1 w-full rounded border-2 border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-50 focus:outline-none"
         />
-        <Copy className="text-gray-400 absolute top-[30px] right-1.5 cursor-pointer bg-white" />
+        {copied ? (
+          <Check className="text-green-500 absolute top-[30px] right-1.5 cursor-pointer bg-white" />
+        ) : (
+          <Copy
+            onClick={handleCopy}
+            className="text-gray-400 absolute top-[30px] right-1.5 cursor-pointer bg-white"
+          />
+        )}
       </div>
       <>
         <div className="font-semibold flex gap-1 mt-5">
@@ -100,6 +134,7 @@ function FileDetails({ data, id, db }: any) {
         Send Email
       </button> */}
       <Button onClick={handleSendEmail} label="Send Email" />
+      <Toaster position="bottom-right" />
     </div>
   );
 }

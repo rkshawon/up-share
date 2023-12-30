@@ -12,6 +12,7 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import generateRandomString from "@/utils/randomString";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 function UploadForm() {
   const [file, setFile] = useState(null);
@@ -48,14 +49,15 @@ function UploadForm() {
           .then((downloadURL) => {
             console.log("File available at", downloadURL);
             saveFile(file, downloadURL);
+            toast.success("File uploaded successfully.");
           })
           .catch((err) => {
             setFile(null);
             setProgress(0);
+            toast.error("Failed to upload.");
             console.log(err);
           });
     });
-    // setFile(null);
   };
 
   const saveFile = async (file: any, downloadURL: string) => {
@@ -124,6 +126,7 @@ function UploadForm() {
       >
         Upload
       </button>
+      <Toaster position="bottom-right" />
       {progress > 0 && file && <ProgressBar progress={progress} />}
     </div>
   );
