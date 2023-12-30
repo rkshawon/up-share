@@ -3,7 +3,7 @@
 import Button from "@/components/Button";
 import { doc, updateDoc } from "firebase/firestore";
 import { Copy, Check } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 function FileDetails({ data, id, db }: any) {

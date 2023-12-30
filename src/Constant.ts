@@ -17,16 +17,31 @@ export const sidebarItem = [
     icon: Files,
     path: "/file",
   },
-  {
-    id: 3,
-    name: "Upgrade",
-    icon: ShieldPlus,
-    path: "/upgrade",
-  },
+  // {
+  //   id: 3,
+  //   name: "Upgrade",
+  //   icon: ShieldPlus,
+  //   path: "/upgrade",
+  // },
   {
     id: 4,
     name: "About",
     icon: BookOpenText,
     path: "/about",
+  },
+];
+
+export const tableHeader = [
+  {
+    id: 1,
+    name: "File Name",
+  },
+  {
+    id: 2,
+    name: "File Type",
+  },
+  {
+    id: 3,
+    name: "File Size",
   },
 ];

@@ -5,7 +5,7 @@ function FileImage({ data }: any) {
   return (
     <div className=" border shadow min-w-[200px] max-w-[600px] border-purple-200 p-5 rounded">
       <Image
-        src={data.fileUrl}
+        src={data?.fileUrl}
         alt=""
         layout="responsive"
         width={600}

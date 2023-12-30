@@ -1,19 +1,21 @@
 "use client";
 
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { DocumentData, doc, getDoc, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { app } from "../../../../../firebaseConfig";
-import Link from "next/link";
+
 import FileImage from "../_components/FileImage";
 import FileDetails from "../_components/FileDetails";
 import { ChevronLeftCircle } from "lucide-react";
 import Loader from "@/components/Loader";
+import { useRouter } from "next/navigation";
 
 function Preview({ params }: { params: { id: string } }) {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<DocumentData>();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const db = getFirestore(app);
+  const router = useRouter();
 
   const getInfo = async () => {
     const docRef = doc(db, "upshare", params?.id);
@@ -40,13 +42,14 @@ function Preview({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-col items-center max-w-[2100px]">
-      <Link
-        href="/upload"
+      <div
+        onClick={() => router.back()}
+        role="button"
         className="font-semibold w-full flex justify-start items-center gap-1"
       >
         <ChevronLeftCircle color="#7c3aed" />
-        <span> Go to upload</span>
-      </Link>
+        <span> Go Back</span>
+      </div>
       <div className="flex flex-col lg:flex-row justify-center mt-5 gap-20 w-full">
         <FileImage data={data} />
         <FileDetails data={data} id={params?.id} db={db} />
