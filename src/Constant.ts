@@ -6,6 +6,12 @@ export const description = {
 
 export const sidebarItem = [
   {
+    id: 0,
+    name: "Home",
+    icon: Home,
+    path: "/",
+  },
+  {
     id: 1,
     name: "Upload",
     icon: FolderUp,
