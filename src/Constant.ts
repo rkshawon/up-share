@@ -48,7 +48,7 @@ export const headerItem = [
     id: 2,
     name: "Files",
     icon: Files,
-    path: "/file",
+    path: "/files",
   },
 
   {
