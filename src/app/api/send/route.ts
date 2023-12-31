@@ -1,14 +1,6 @@
 import { Resend } from "resend";
 import * as React from "react";
 import { EmailTemplate } from "../../../services/email/email-template";
-import { NextApiRequest, NextApiResponse } from "next";
-
-interface EmailTemplateProps {
-  fileType: string;
-  fileName: string;
-  userName: string;
-  shortUrl: string;
-}
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

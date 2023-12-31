@@ -72,7 +72,7 @@ function UploadForm() {
       userEmail: user?.primaryEmailAddress?.emailAddress,
       userName: user?.fullName,
       password: "",
-      shortUrl: "http://localhost:3000/download/" + docId,
+      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + "/download/" + docId,
     })
       .then((res) => {
         console.log(res);

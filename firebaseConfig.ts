@@ -27,3 +27,7 @@ export const app = initializeApp(firebaseConfig);
 // NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 // NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
 // NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+
+// RESEND_API_KEY=re_ebemoruD_6nS38Fn28QZyZ264Fa4eE2r9
+
+// BASE_URL=http://localhost:3000

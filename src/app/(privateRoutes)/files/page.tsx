@@ -101,7 +101,7 @@ function File() {
                     </td>
                     <td className="whitespace-nowrap px-1 sm:px-5 py-2">
                       <Link
-                        href={item?.shortUrl}
+                        href={`/preview/${item?.id}`}
                         className="inline-block rounded bg-purple-600 px-4 py-2 text-xs font-medium text-white hover:bg-purple-700"
                       >
                         View
