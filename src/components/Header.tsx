@@ -1,86 +1,87 @@
+"use client";
+
+import { headerItem } from "@/Constant";
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 function Header() {
+  const pathname = usePathname();
+  const [activeIndex, setActiveIndex] = useState(pathname);
+  const [active, setActive] = useState(false);
+  const route = useRouter();
+
   return (
     <header className="bg-white border-b shadow h-16">
-      <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-        <Image src="/logo.png" alt="" height={100} width={150} />
+      <div className=" flex h-16 items-centergap-8 px-4 sm:px-6 lg:px-8 ">
+        <div className="h-16 cursor-pointer flex items-center mr-10">
+          <Image
+            src="/logo.png"
+            alt=""
+            height={50}
+            width={150}
+            onClick={() => route.push("/")}
+          />
+        </div>
 
         <div className="flex flex-1 items-center justify-end md:justify-between">
           <nav aria-label="Global" className="hidden md:block">
             <ul className="flex items-center gap-6 text-sm">
-              <li>
-                <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/upload"
-                >
-                  Home
-                </a>
-              </li>
-
-              <li>
-                <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/upload"
-                >
-                  Upload
-                </a>
-              </li>
-
-              <li>
-                <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/file"
-                >
-                  Files
-                </a>
-              </li>
-
-              <li>
-                <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/about"
-                >
-                  About
-                </a>
-              </li>
+              {headerItem.map((item) => {
+                return (
+                  <li key={item.id}>
+                    <a
+                      className="text-gray-500 transition  hover:text-purple-700 flex items-center gap-1"
+                      href="/upload"
+                    >
+                      {" "}
+                      <item.icon size={18} />
+                      {item.name}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
           <div className="flex items-center gap-4">
-            <div className="sm:flex sm:gap-4">
+            <div className=" sm:gap-4 md:block hidden">
               <a
                 className="block rounded-md bg-purple-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-purple-700"
                 href="/upload"
               >
                 Get Started
               </a>
-
-              {/* <a
-                className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-purple-600 transition hover:text-purple-600/75 sm:block"
-                href="/"
-              >
-                Register
-              </a> */}
             </div>
-
-            <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
-              <span className="sr-only">Toggle menu</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
+            <div className="relative md:hidden transition-all h-10 w-10">
+              <div
+                onClick={() => setActive(!active)}
+                className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden cursor-pointer absolute"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
+                {!active ? <Menu /> : <X />}
+              </div>
+              <div className="absolute top-12 right-0 bg-white shadow rounded">
+                {active &&
+                  headerItem.map((item) => {
+                    return (
+                      <div
+                        onClick={() => {
+                          route.push(item.path);
+                          setActiveIndex(item.path);
+                        }}
+                        key={item.id}
+                        className={`block px-4 m-2 py-2 my-1 text-sm cursor-pointer rounded  text-gray-500 hover:bg-purple-100 hover:text-purple-700`}
+                      >
+                        <div className="flex items-center">
+                          <item.icon size={20} />
+                          <span className="ml-2">{item.name}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
