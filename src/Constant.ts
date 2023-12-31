@@ -15,7 +15,7 @@ export const sidebarItem = [
     id: 2,
     name: "Files",
     icon: Files,
-    path: "/file",
+    path: "/files",
   },
   // {
   //   id: 3,
