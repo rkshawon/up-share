@@ -7,16 +7,14 @@ import {
   Heading,
   Html,
   Img,
-  Preview,
   Row,
   Section,
-  Text,
+  Text, // @ts-ignore
 } from "@react-email/components";
+
 import * as React from "react";
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "";
+const baseUrl = process.env.BASE_URL ? `https://${process.env.VERCEL_URL}` : "";
 
 interface EmailTemplateProps {
   fileType: string;
@@ -35,6 +33,9 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
     <Html>
       <Body style={main}>
         <Container>
+          <Section style={logo}>
+            <Img src="https://i.ibb.co/vDSQMHQ/logo.png" alt="Cat" />
+          </Section>
           <Section style={content}>
             <Row style={{ ...boxInfos, paddingBottom: "0" }}>
               <Column>
@@ -48,6 +49,10 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                 >
                   {userName} shared file with you.
                 </Heading>
+                <Text style={paragraph}>
+                  <b>User Name: </b>
+                  {userName}
+                </Text>
                 <Text style={paragraph}>
                   <b>File Name: </b>
                   {fileName}
@@ -87,6 +92,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 };
 
 const main = {
+  padding: "50px 0 0 0",
   backgroundColor: "#fff",
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
@@ -97,7 +103,10 @@ const paragraph = {
 };
 
 const logo = {
-  padding: "30px 20px",
+  display: "flex",
+  justifyContent: "center",
+  width: "100%",
+  margin: "10px 0",
 };
 
 const containerButton = {
@@ -124,8 +133,4 @@ const content = {
 
 const boxInfos = {
   padding: "20px 40px",
-};
-
-const containerImageFooter = {
-  padding: "45px 0 0 0",
 };

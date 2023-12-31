@@ -27,7 +27,12 @@ function FileDetails({ data, id, db }: any) {
     await fetch("/api/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
+      body: JSON.stringify({
+        fileType: data?.fileType,
+        fileName: data?.fileName,
+        userName: data?.userName,
+        shortUrl: data?.shortUrl,
+      }),
     })
       .then((res) => {
         toast.success("Email sent successfully.");
