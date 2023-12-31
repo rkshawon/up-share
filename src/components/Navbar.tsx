@@ -8,7 +8,7 @@ import React from "react";
 function Navbar() {
   const route = useRouter();
   return (
-    <div className="border-b w-full p-3 flex items-center justify-between shadow-b h-16 cursor-pointer">
+    <div className="border-b w-full p-3 flex items-center justify-between shadow-b h-16 cursor-pointer lg:px-8">
       <Image
         src="/logo.png"
         alt=""
