@@ -48,7 +48,7 @@ function Header() {
                   <li key={item.id}>
                     <a
                       className="text-gray-500 transition  hover:text-purple-700 flex items-center gap-1"
-                      href="/upload"
+                      href={item.path}
                     >
                       {" "}
                       <item.icon size={18} />
