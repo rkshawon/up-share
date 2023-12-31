@@ -4,13 +4,28 @@ import { headerItem } from "@/Constant";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Header() {
   const pathname = usePathname();
   const [activeIndex, setActiveIndex] = useState(pathname);
   const [active, setActive] = useState(false);
   const route = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutSideClick = (event: any) => {
+      if (!ref.current?.contains(event.target)) {
+        setActive(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutSideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutSideClick);
+    };
+  }, [ref]);
 
   return (
     <header className="bg-white border-b shadow h-16">
@@ -54,14 +69,17 @@ function Header() {
                 Get Started
               </a>
             </div>
-            <div className="relative md:hidden transition-all h-10 w-10">
+            <div
+              className="relative md:hidden transition-all h-10 w-10"
+              ref={ref}
+            >
               <div
                 onClick={() => setActive(!active)}
                 className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden cursor-pointer absolute"
               >
                 {!active ? <Menu /> : <X />}
               </div>
-              <div className="absolute top-12 right-0 bg-white shadow rounded">
+              <div className="absolute top-12 right-0 bg-white shadow rounded ">
                 {active &&
                   headerItem.map((item) => {
                     return (
