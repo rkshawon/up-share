@@ -25,6 +25,7 @@ function UploadForm() {
   const selectFile = (e: any) => {
     const data = e.target.files[0];
     if (data?.size > 2000000) {
+      toast.error("Max file size is 2MB");
       console.log("file size is larger");
       return;
     }
@@ -117,6 +118,7 @@ function UploadForm() {
           type="file"
           className="hidden"
         />
+        <Toaster position="bottom-right" />
       </label>
       {file && <FilePreview file={file} setFile={setFile} />}
       <button

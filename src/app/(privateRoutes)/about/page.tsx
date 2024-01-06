@@ -66,16 +66,6 @@ const AboutPage = () => {
           </li>
         </ol>
       </div>
-
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Start Exploring!</h2>
-        <p>
-          Ready to get started?{" "}
-          <Link href="/signup">
-            <p className="text-purple-600 hover:underline">Sign up now</p>
-          </Link>{" "}
-        </p>
-      </div>
     </div>
   );
 };
