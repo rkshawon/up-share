@@ -50,7 +50,6 @@ function Header() {
                       className="text-gray-500 transition  hover:text-purple-700 flex items-center gap-1"
                       href={item.path}
                     >
-                      {" "}
                       <item.icon size={18} />
                       {item.name}
                     </a>

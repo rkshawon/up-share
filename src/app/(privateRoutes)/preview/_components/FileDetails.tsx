@@ -66,15 +66,16 @@ function FileDetails({ data, id, db }: any) {
           type="text"
           name="text"
           id="text"
+          disabled
           placeholder={data?.shortUrl || "file url..."}
           className="mb-2 px-2 py-1 w-full rounded border-2 border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-50 focus:outline-none"
         />
         {copied ? (
-          <Check className="text-green-500 absolute top-[30px] right-1.5 cursor-pointer bg-white" />
+          <Check className="text-green-500 absolute top-[30px] right-1.5 cursor-pointer " />
         ) : (
           <Copy
             onClick={handleCopy}
-            className="text-gray-400 absolute top-[30px] right-1.5 cursor-pointer bg-white"
+            className="text-gray-400 absolute top-[30px] right-1.5 cursor-pointer "
           />
         )}
       </div>

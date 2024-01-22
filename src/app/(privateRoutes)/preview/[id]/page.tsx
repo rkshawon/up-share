@@ -50,7 +50,7 @@ function Preview({ params }: { params: { id: string } }) {
         <ChevronLeftCircle color="#7c3aed" />
         <span> Go Back</span>
       </div>
-      <div className="flex flex-col lg:flex-row justify-center mt-5 gap-20 w-full min-h-[370px]">
+      <div className="flex flex-col lg:flex-row justify-center mt-10 gap-20 w-full min-h-[370px]">
         <FileImage data={data} />
         <FileDetails data={data} id={params?.id} db={db} />
       </div>
